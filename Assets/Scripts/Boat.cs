@@ -9,14 +9,6 @@ public class Boat : MonoBehaviour
 
 	private Slider throttle_slider;
 	private Slider rudder_slider;
-	private AudioSource engine_audio;
-
-	private Dictionary<int, float> throttle_pitch_mapping = new Dictionary<int, float> () {
-		{ -1, 1f },
-		{ 0, 0.9f },
-		{ 1, 1f },
-		{ 2, 1.1f }
-	};
 
 	#endregion
 
@@ -78,7 +70,6 @@ public class Boat : MonoBehaviour
 	public void UpdateThrottle ()
 	{
 		ThrottleLevel = (int)throttle_slider.value;
-		engine_audio.pitch = throttle_pitch_mapping [ThrottleLevel];
 	}
 
 	public void UpdateRudder ()
@@ -94,10 +85,6 @@ public class Boat : MonoBehaviour
 	{
 		throttle_slider = GameObject.FindGameObjectWithTag ("Throttle Slider").GetComponent<Slider> ();
 		rudder_slider = GameObject.FindGameObjectWithTag ("Rudder Slider").GetComponent<Slider> ();
-		engine_audio = GameObject.FindGameObjectWithTag ("Engine Audio").GetComponent<AudioSource> ();
-
-		UpdateThrottle ();
-		UpdateRudder ();
 	}
 
 	void Update ()
