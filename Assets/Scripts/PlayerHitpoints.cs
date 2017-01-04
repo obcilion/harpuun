@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hitpoints : MonoBehaviour
+public class PlayerHitpoints : MonoBehaviour
 {
 	private GameState game_state;
 
