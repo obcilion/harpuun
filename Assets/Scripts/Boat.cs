@@ -81,6 +81,16 @@ public class Boat : MonoBehaviour
 
 	#region Unity Methods
 
+	void OnTriggerEnter (Collider collider)
+	{
+		var dir = transform.position - collider.transform.position;
+		dir.Normalize ();
+		transform.Translate (dir * 2);
+		Speed = 0;
+		ThrottleLevel = 0;
+		throttle_slider.value = 0;
+	}
+
 	void Start ()
 	{
 		throttle_slider = GameObject.FindGameObjectWithTag ("Throttle Slider").GetComponent<Slider> ();
