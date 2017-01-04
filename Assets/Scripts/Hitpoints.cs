@@ -17,7 +17,6 @@ public class Hitpoints : MonoBehaviour
 	void OnTriggerEnter (Collider collider)
 	{
 		Lives -= 1;
-		Debug.Log ("Collision! " + Lives + " lives left");
 		if (Lives <= 0) {
 			game_state.GameOver = true;
 		}
