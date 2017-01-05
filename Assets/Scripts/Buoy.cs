@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitpointDestroy : MonoBehaviour
+public class Buoy : MonoBehaviour
 {
 
-	public int lives;
+	private GameState game_state;
 
 	void OnTriggerEnter (Collider collider)
 	{
@@ -13,20 +13,13 @@ public class HitpointDestroy : MonoBehaviour
 			return;
 		}
 
-		lives -= 1;
-		if (lives <= 0) {
-			Destroy (gameObject);
-		}
+		game_state.points += 1;
+		Destroy (gameObject);
 	}
+
 	// Use this for initialization
 	void Start ()
 	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
+		game_state = GameObject.FindGameObjectWithTag ("GameState").GetComponent<GameState> ();
 	}
 }

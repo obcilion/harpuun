@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
+	public int points = 0;
 	private bool game_over = false;
 
 	public bool GameOver {
