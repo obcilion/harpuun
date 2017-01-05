@@ -91,7 +91,11 @@ public class Boat : MonoBehaviour
 		throttle_slider.value = 0;
 		RudderAngle = 0;
 		rudder_slider.value = 0;
-		transform.Translate (-Vector3.forward * bump_distance_on_hit);
+		if (speed >= 0) {
+			transform.Translate (-Vector3.forward * bump_distance_on_hit);	
+		} else {
+			transform.Translate (Vector3.forward * bump_distance_on_hit);
+		}
 	}
 
 	void Start ()
