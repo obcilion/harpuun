@@ -10,6 +10,9 @@ public class Boat : MonoBehaviour
 	private Slider throttle_slider;
 	private Slider rudder_slider;
 
+	[SerializeField]
+	private float bump_distance_on_hit;
+
 	#endregion
 
 	#region Properties
@@ -83,12 +86,10 @@ public class Boat : MonoBehaviour
 
 	void OnTriggerEnter (Collider collider)
 	{
-		var dir = transform.position - collider.transform.position;
-		dir.Normalize ();
-		transform.Translate (dir * 2);
 		Speed = 0;
 		ThrottleLevel = 0;
 		throttle_slider.value = 0;
+		transform.Translate (-Vector3.forward * bump_distance_on_hit);
 	}
 
 	void Start ()
