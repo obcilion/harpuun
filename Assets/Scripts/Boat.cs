@@ -89,6 +89,8 @@ public class Boat : MonoBehaviour
 		Speed = 0;
 		ThrottleLevel = 0;
 		throttle_slider.value = 0;
+		RudderAngle = 0;
+		rudder_slider.value = 0;
 	}
 
 	void Start ()
