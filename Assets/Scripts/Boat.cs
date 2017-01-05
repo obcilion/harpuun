@@ -86,16 +86,12 @@ public class Boat : MonoBehaviour
 
 	void OnTriggerEnter (Collider collider)
 	{
+		transform.Translate (-Vector3.forward * bump_distance_on_hit * Mathf.Clamp (ThrottleLevel, -1, 1));
 		Speed = 0;
 		ThrottleLevel = 0;
 		throttle_slider.value = 0;
 		RudderAngle = 0;
 		rudder_slider.value = 0;
-		if (speed >= 0) {
-			transform.Translate (-Vector3.forward * bump_distance_on_hit);	
-		} else {
-			transform.Translate (Vector3.forward * bump_distance_on_hit);
-		}
 	}
 
 	void Start ()
