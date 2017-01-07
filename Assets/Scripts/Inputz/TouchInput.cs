@@ -1,9 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class MoveEventArgs : EventArgs
+{
+    public Vector2 Movement { get; set; }
+}
+
 public class TouchInput : MonoBehaviour {
+
+    public event EventHandler<MoveEventArgs> OnMove;
 
     public float MoveTolerance = 0;
 
@@ -40,6 +48,8 @@ public class TouchInput : MonoBehaviour {
 
     void Move(Vector2 amount, float time)
     {
+        GameObject.FindGameObjectWithTag("DEBUGTEXT").GetComponent<Text>().text = "TouchInput.Move()";
+        if(OnMove != null) OnMove.Invoke(this, new MoveEventArgs { Movement = amount });
     }
 
     Vector2 NormalizeToScreenSize(Vector2 screenpoint)

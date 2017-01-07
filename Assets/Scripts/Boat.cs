@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +10,12 @@ public class Boat : MonoBehaviour
 
 	private Slider throttle_slider;
 	private Slider rudder_slider;
+    private TouchInput input;
 
-	[SerializeField]
+    public Text DebugText1;
+    public Text DebugText2;
+
+    [SerializeField]
 	private float bump_distance_on_hit;
 
 	#endregion
@@ -63,7 +68,12 @@ public class Boat : MonoBehaviour
 
 	public float RudderAngle {
 		get { return rudder_angle; }
-		set { rudder_angle = value; }
+		set
+        {
+            if (rudder_angle + value > 180) rudder_angle = 180;
+            if (rudder_angle + value < -180) rudder_angle = -180;
+            rudder_angle = value;
+        }
 	}
 
 	#endregion
@@ -75,17 +85,34 @@ public class Boat : MonoBehaviour
 		ThrottleLevel = (int)throttle_slider.value;
 	}
 
+
+    float rudderChangeVelocity = 0;
+    float rudderChangeDrag = 0.98f;
 	public void UpdateRudder ()
 	{
-		RudderAngle = rudder_slider.value;
+        if (DebugText1 != null) DebugText1.text = "" + rudderChangeVelocity;
+
+        if (rudderChangeVelocity <= 0.01) return;
+
+        //RudderAngle = rudder_slider.value;
+        rudderChangeVelocity *= rudderChangeDrag;
+        RudderAngle += rudderChangeVelocity;
 	}
 
-	#endregion
+    private void Input_OnMove(object sender, MoveEventArgs e)
+    {
+        if (DebugText2 != null) DebugText2.text = "OnMove triggered.";
+        RudderAngle = 60f * e.Movement.x; 
+    }
 
-	#region Unity Methods
+    #endregion
 
-	void OnTriggerEnter (Collider collider)
+    #region Unity Methods
+
+    void OnTriggerEnter (Collider collider)
 	{
+        if (DebugText2 != null) DebugText2.text = "Collision enter";
+
 		// Only recoil on terrain
 		if (collider.gameObject.layer != 10) {
 			return;
@@ -94,19 +121,24 @@ public class Boat : MonoBehaviour
 		transform.Translate (-Vector3.forward * bump_distance_on_hit * Mathf.Clamp (ThrottleLevel, -1, 1));
 		Speed = 0;
 		ThrottleLevel = 0;
-		throttle_slider.value = 0;
+		//throttle_slider.value = 0;
 		RudderAngle = 0;
-		rudder_slider.value = 0;
+		//rudder_slider.value = 0;
 	}
 
 	void Start ()
 	{
-		throttle_slider = GameObject.FindGameObjectWithTag ("Throttle Slider").GetComponent<Slider> ();
-		rudder_slider = GameObject.FindGameObjectWithTag ("Rudder Slider").GetComponent<Slider> ();
+        input = gameObject.AddComponent<TouchInput>();
+        //throttle_slider = GameObject.FindGameObjectWithTag ("Throttle Slider").GetComponent<Slider> ();
+		//rudder_slider = GameObject.FindGameObjectWithTag ("Rudder Slider").GetComponent<Slider> ();
+
+        input.OnMove += Input_OnMove;
 	}
 
-	void Update ()
+    void Update ()
 	{
+        //UpdateRudder();
+
 		transform.Rotate (Vector3.up * Time.deltaTime * RudderAngle * TurnMultiplier);
 		Speed = Mathf.MoveTowards (Speed, ThrottleLevel, Acceleration);
 		transform.Translate (Vector3.forward * Time.deltaTime * speed * speed_multiplier);

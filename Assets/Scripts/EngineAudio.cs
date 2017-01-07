@@ -17,13 +17,13 @@ public class EngineAudio : MonoBehaviour
 
 	public void UpdateThrottle ()
 	{
-		engine_audio.pitch = throttle_pitch_mapping [(int)throttle_slider.value];
+		//engine_audio.pitch = throttle_pitch_mapping [(int)throttle_slider.value];
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		throttle_slider = GameObject.FindGameObjectWithTag ("Throttle Slider").GetComponent<Slider> ();
+		//throttle_slider = GameObject.FindGameObjectWithTag ("Throttle Slider").GetComponent<Slider> ();
 		engine_audio = transform.GetComponent<AudioSource> ();
 		UpdateThrottle ();
 	}
