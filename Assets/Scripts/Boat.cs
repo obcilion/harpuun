@@ -87,7 +87,7 @@ public class Boat : MonoBehaviour
 	void OnTriggerEnter (Collider collider)
 	{
 		// Only recoil on terrain
-		if (collider.gameObject.layer != 10) {
+		if (collider.gameObject.layer != 10 || gameObject.tag != "Player") {
 			return;
 		}
 

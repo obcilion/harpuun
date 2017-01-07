@@ -22,7 +22,6 @@ public class EnemySpawner : MonoBehaviour
 			var result = Physics.OverlapSphere (position, enemy_radius);
 			if (result.Length == 0) {
 				var instance = GameState.Instantiate (enemy_prefab);
-				Debug.Log ("placing at " + position + "in loop " + loop);
 				instance.transform.position = position;
 				break;
 			}
