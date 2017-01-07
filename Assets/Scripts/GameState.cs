@@ -7,7 +7,18 @@ public class GameState : MonoBehaviour
 	public GameObject enemy_prefab;
 	public GameObject buoy_prefab;
 
-	public int points = 0;
+	private int _points = 0;
+
+	public int points {
+		get {
+			return _points;
+		}
+		set {
+			_points = value;
+			buoy_spawner.SpawnRandom (buoy_prefab);
+		}
+	}
+
 	private bool game_over = false;
 	public float spawn_timer;
 	public float time = 0;
@@ -40,12 +51,10 @@ public class GameState : MonoBehaviour
 
 	void Update ()
 	{
-		if (points > 0) {
-			time += Time.deltaTime;
-			if (time > spawn_timer) {
-				time = 0;
-				enemy_spawner.SpawnEnemy (enemy_prefab);
-			}
+		time += Time.deltaTime;
+		if (time > spawn_timer) {
+			time = 0;
+			enemy_spawner.SpawnEnemy (enemy_prefab);
 		}
 	}
 }
