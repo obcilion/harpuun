@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHitpoints : MonoBehaviour
 {
 	private GameState game_state;
+	private Boat boat;
 
 	[SerializeField]
 	private int lives;
@@ -20,11 +21,14 @@ public class PlayerHitpoints : MonoBehaviour
 		if (Lives <= 0) {
 			game_state.GameOver = true;
 		}
+
+		boat.OnTriggerEnter (collider);
 	}
 	// Use this for initialization
 	void Start ()
 	{
 		game_state = GameObject.FindGameObjectWithTag ("GameState").GetComponent<GameState> ();
+		boat = GameObject.FindGameObjectWithTag ("Player").GetComponent<Boat> ();
 	}
 
 	// Update is called once per frame
