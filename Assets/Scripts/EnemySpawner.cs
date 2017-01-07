@@ -9,7 +9,6 @@ public class EnemySpawner : MonoBehaviour
 	public float y_pos = 0;
 	public float enemy_radius = .5f;
 	public int max_loops = 10;
-	public LayerMask layer_mask;
 
 	public void SpawnEnemy (GameObject enemy_prefab)
 	{

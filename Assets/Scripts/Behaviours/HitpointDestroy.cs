@@ -9,11 +9,16 @@ public class HitpointDestroy : MonoBehaviour
 
 	void OnTriggerEnter (Collider collider)
 	{
-		lives -= 1;
-		if (lives <= 0) {
+		if (collider.gameObject.layer == 10) {
 			Destroy (gameObject);
+		} else if (collider.gameObject.layer == 9) {
+			lives -= 1;
+			if (lives <= 0) {
+				Destroy (gameObject);
+			}
 		}
 	}
+
 	// Use this for initialization
 	void Start ()
 	{
