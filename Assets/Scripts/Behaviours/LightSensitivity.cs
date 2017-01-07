@@ -10,7 +10,6 @@ public class LightSensitivity : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		Debug.Log ("Start!");
 		if (other.gameObject.layer == 12 && in_collider == null) {
 			in_collider = other;
 		}
