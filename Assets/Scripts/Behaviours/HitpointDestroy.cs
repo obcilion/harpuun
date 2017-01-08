@@ -7,8 +7,11 @@ public class HitpointDestroy : MonoBehaviour
 
 	public int lives;
 
+
 	void OnTriggerEnter (Collider collider)
 	{
+		
+
 		if (collider.gameObject.layer == 10) {
 			Destroy (gameObject);
 		} else if (collider.gameObject.layer == 9) {
@@ -22,7 +25,6 @@ public class HitpointDestroy : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
 	}
 	
 	// Update is called once per frame

@@ -21,7 +21,6 @@ public class PlayerHitpoints : MonoBehaviour
 		if (Lives <= 0) {
 			game_state.GameOver = true;
 		}
-
 		boat.OnTriggerEnter (collider);
 	}
 	// Use this for initialization
@@ -29,6 +28,7 @@ public class PlayerHitpoints : MonoBehaviour
 	{
 		game_state = GameObject.FindGameObjectWithTag ("GameState").GetComponent<GameState> ();
 		boat = GameObject.FindGameObjectWithTag ("Player").GetComponent<Boat> ();
+
 	}
 
 	// Update is called once per frame

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
+
 
 public class Boat : MonoBehaviour
 {
@@ -10,8 +12,12 @@ public class Boat : MonoBehaviour
 	private Slider throttle_slider;
 	private Slider rudder_slider;
 
+
 	[SerializeField]
 	private float bump_distance_on_hit;
+	public AudioSource source;
+	public AudioClip[] audioFiles;
+
 
 	#endregion
 
@@ -88,8 +94,14 @@ public class Boat : MonoBehaviour
 	{
 		// Only recoil on terrain
 		if (collider.gameObject.layer != 10) {
+			if(collider != GameObject.FindGameObjectWithTag ("Buoy").GetComponent<Collider> ()) {
+				source.PlayOneShot (audioFiles[3]);
+			}
 			return;
 		}
+
+		source.PlayOneShot (audioFiles[0], speed/2);
+		//Debug.Log (speed);
 
 		transform.Translate (-Vector3.forward * bump_distance_on_hit * Mathf.Clamp (ThrottleLevel, -1, 1));
 		Speed = 0;
@@ -97,12 +109,15 @@ public class Boat : MonoBehaviour
 		throttle_slider.value = 0;
 		RudderAngle = 0;
 		rudder_slider.value = 0;
+
 	}
 
 	void Start ()
 	{
 		throttle_slider = GameObject.FindGameObjectWithTag ("Throttle Slider").GetComponent<Slider> ();
 		rudder_slider = GameObject.FindGameObjectWithTag ("Rudder Slider").GetComponent<Slider> ();
+
+		source = GetComponent<AudioSource> ();
 	}
 
 	void Update ()
