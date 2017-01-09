@@ -8,7 +8,7 @@ public class LightSensitivity : MonoBehaviour
 	private float time_in_light = 0;
 	private Collider in_collider = null;
 	public AudioClip audioFile;
-	AudioSource source;
+	public AudioSource source;
 
 	void OnTriggerEnter (Collider other)
 	{
